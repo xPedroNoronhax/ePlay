@@ -1,12 +1,14 @@
-import { ButtonContainer, ButtonLink } from './styles'
+import * as S from './styles'
 
 export type Props = {
-  type: 'button' | 'link'
+  type: 'button' | 'link' | 'submit'
   title: string
   to?: string
   onClick?: () => void
   children: string
   variant?: 'primary' | 'secondary'
+  onSubmit?: () => void
+  disabled?: boolean
 }
 
 const Button = ({
@@ -15,22 +17,24 @@ const Button = ({
   to,
   onClick,
   children,
-  variant = 'primary'
+  variant = 'primary',
+  disabled
 }: Props) => {
-  if (type === 'button') {
+  if (type === 'button' || type === 'submit') {
     return (
-      <ButtonContainer
+      <S.ButtonContainer
         variant={variant}
-        type="button"
+        type={type}
         title={title}
         onClick={onClick}
+        disabled={disabled}
       >
         {children}
-      </ButtonContainer>
+      </S.ButtonContainer>
     )
   }
 
-  return <ButtonLink to={to as string}>{children}</ButtonLink>
+  return <S.ButtonLink to={to as string}>{children}</S.ButtonLink>
 }
 
 export default Button
